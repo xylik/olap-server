@@ -65,13 +65,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 
 		<!-- Spring -->
@@ -325,10 +320,11 @@
 			<artifactId>pdfbox-app</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jasig.cas.client</groupId>
-			<artifactId>cas-client-core</artifactId>
-		</dependency>
+	<!-- This dependency transitive dependecy(log4j-over-sl4j) clashes with sl4j-log4j12 -->
+	<!-- <dependency> -->
+	<!-- <groupId>org.jasig.cas.client</groupId> -->
+	<!-- <artifactId>cas-client-core</artifactId> -->
+	<!-- </dependency> -->
 
 	</dependencies>
 
