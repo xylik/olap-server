@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Schema>
+<Schema name="Sales Schema">
+	
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="TimeDim">
+    <Hierarchy name="TimeHierarchy" visible="true" hasAll="true" allMemberName="All Time" primaryKey="idtime">
+      <Table name="dtime" schema="public">
+      </Table>
+      <Level name="Year level" visible="true" table="dtime" column="year" type="String" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+      <Level name="Month level" visible="true" table="dtime" column="month" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+      <Level name="Day level" visible="true" table="dtime" column="day" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="ProductDim">
+    <Hierarchy name="ProductHierarchy" visible="true" hasAll="true" allMemberName="All Products" primaryKey="idproduct">
+      <Table name="dproduct" schema="public">
+      </Table>
+      <Level name="Category level" visible="true" table="dproduct" column="productcategory" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Product level" visible="true" table="dproduct" column="productname" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="LocationDim">
+    <Hierarchy name="CountryHierarchy" visible="true" hasAll="true" allMemberName="All Locations" primaryKey="idlocation">
+      <Table name="dlocation" schema="public">
+      </Table>
+      <Level name="Country level" visible="true" table="dlocation" column="countryname" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Place name" visible="true" table="dlocation" column="placename" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  
+  <Cube name="Sales cube" visible="true" cache="true" enabled="true">
+    <Table name="fsales" schema="public">
+    </Table>
+    <DimensionUsage source="ProductDim" name="Product" visible="true" foreignKey="idproduct" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="LocationDim" name="Location" visible="true" foreignKey="idlocation" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="TimeDim" name="Time" visible="true" foreignKey="idtime" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Sales" column="price" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  
+</Schema>

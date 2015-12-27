@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>olap-server</artifactId>
+		<groupId>com.fer.hr</groupId>
+		<version>1.0</version>
+	</parent>
+
+	<groupId>com.fer.hr</groupId>
+	<artifactId>olap-util</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>olap-util</name>
+
+	<properties>
+		<slf4j.version>1.6.1</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>pentaho</groupId>
+			<artifactId>mondrian</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>eigenbase</groupId>
+			<artifactId>eigenbase-properties</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>eigenbase</groupId>
+			<artifactId>eigenbase-resgen</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>eigenbase</groupId>
+			<artifactId>eigenbase-xom</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.olap4j</groupId>
+			<artifactId>olap4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.olap4j</groupId>
+			<artifactId>olap4j-xmla</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+	</dependencies>
+</project>

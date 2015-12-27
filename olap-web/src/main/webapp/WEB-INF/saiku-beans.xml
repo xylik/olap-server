@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="dataSourceManagerBean" class="com.fer.hr.service.datasource.ClassPathResourceDatasourceManager" init-method="init"/>
+    
+    <bean id="connManagerBean" class="com.fer.hr.datasources.connection.SimpleConnectionManager" init-method="init">
+        <property name="dataSourceManager" ref="dataSourceManagerBean"/>
+    </bean>
+
+    <bean id="datasourceServiceBean" class="com.fer.hr.service.datasource.DatasourceService">
+        <property name="connectionManager" ref="connManagerBean"/>
+    </bean>
+    
+<!--
+    <bean id="adminBean" class="org.saiku.web.rest.resources.AdminResource">
+        <property name="userService" ref="userServiceBean"/>
+        <property name="datasourceService" ref="datasourceServiceBean"/>
+        <property name="olapDiscoverService" ref="olapDiscoverServiceBean"/>
+        <property name="repositoryDatasourceManager" ref="repositoryDsManager"/>
+        <property name="logExtractor" ref="logwriterbean"/>
+    </bean>
+-->
+
+    <bean id="olapDiscoverServiceBean" class="com.fer.hr.service.olap.OlapDiscoverService">
+        <property name="datasourceService" ref="datasourceServiceBean"/>
+    </bean>
+
+<!--
+    <bean id="olapQueryBean" scope="session" class="org.saiku.service.olap.OlapQueryService" destroy-method="destroy">
+        <property name="olapDiscoverService" ref="olapDiscoverServiceBean"/>
+    </bean>
+-->
+
+    <bean id="olapDiscoverBean" scope="session"
+          class="com.fer.hr.web.rest.resources.OlapDiscoverResource">
+        <property name="olapDiscoverService" ref="olapDiscoverServiceBean"/>
+    </bean>
+
+<!--
+    <bean id="queryResource" scope="request"
+          class="org.saiku.web.rest.resources.QueryResource">
+        <property name="olapQueryService" ref="olapQueryBean"/>
+        <property name="olapDiscoverService" ref="olapDiscoverServiceBean"/>
+        <property name="repository" ref="repository2bean"/>
+    </bean>
+-->
+
+    <bean id="thinQueryBean" scope="session"
+          class="com.fer.hr.service.olap.ThinQueryService">
+        <property name="olapDiscoverService" ref="olapDiscoverServiceBean"/>
+    </bean>
+
+    <bean id="queryResource2" scope="request"
+          class="com.fer.hr.web.rest.resources.Query2Resource">
+        <property name="thinQueryService" ref="thinQueryBean"/>
+<!--
+        <property name="repository" ref="repository2bean"/>
+-->
+    </bean>
+
+<!--
+    <bean id="sessionResource" class="org.saiku.web.rest.resources.SessionResource">
+        <property name="sessionService" ref="sessionService"/>
+        <property name="userService" ref="userServiceBean"/>
+    </bean>
+-->
+
+
+<!--
+    <bean id="exporterBean" scope="request"
+          class="org.saiku.web.rest.resources.ExporterResource">
+        <property name="repository" ref="repository2bean"/>
+        <property name="query2Resource" ref="queryResource2"/>
+    </bean>
+-->
+
+    <bean id="startupBean" scope="singleton" class="com.fer.hr.web.rest.util.StartupResource" init-method="init"/>
+
+</beans>
