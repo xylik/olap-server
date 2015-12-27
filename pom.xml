@@ -15,9 +15,7 @@
 
 	<properties>
 		<project.version>1.0</project.version>
-			<!-- <version>3.11.0.0-353</version> -->
 		<mondrian.version>4.3.0.1-130</mondrian.version>
-		<!-- 		<mondrian.version>4.3.0.1-SPARK</mondrian.version> -->
 		<olap4j.version>1.2.0</olap4j.version>
 		<slf4j.version>1.6.4</slf4j.version>
 		<log4j.version>1.2.14</log4j.version>
@@ -111,30 +109,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-<!-- 		<pluginManagement> -->
-<!-- 			<plugins> -->
-<!-- 				<plugin> -->
-<!-- 					<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 					<artifactId>maven-source-plugin</artifactId> -->
-<!-- 					<version>2.3</version> -->
-<!-- 				</plugin> -->
-<!-- 				<plugin> -->
-<!-- 					<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 					<artifactId>maven-compiler-plugin</artifactId> -->
-<!-- 					<version>3.1</version> -->
-<!-- 				</plugin> -->
-<!-- 				<plugin> -->
-<!-- 					<groupId>org.codehaus.mojo</groupId> -->
-<!-- 					<artifactId>build-helper-maven-plugin</artifactId> -->
-<!-- 					<version>1.9</version> -->
-<!-- 				</plugin> -->
-<!-- 				<plugin> -->
-<!-- 					<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 					<artifactId>maven-checkstyle-plugin</artifactId> -->
-<!-- 					<version>2.12.1</version> -->
-<!-- 				</plugin> -->
-<!-- 			</plugins> -->
-<!-- 		</pluginManagement> -->
 	</build>
 
 	<dependencies>
