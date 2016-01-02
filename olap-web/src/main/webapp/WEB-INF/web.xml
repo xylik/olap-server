@@ -11,6 +11,16 @@
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>com.fer.hr.web.filters.AuthenticationFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -41,7 +51,6 @@
 
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>jersey2</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
