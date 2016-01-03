@@ -12,8 +12,9 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.stereotype.Component;
 
-import com.fer.hr.service.security.AuthenticationService;
-import com.fer.hr.service.security.UserToken;
+import com.fer.hr.web.service.security.AuthenticationService;
+import com.fer.hr.web.service.security.dto.UserToken;
+
 
 @Component
 @Path("/authentication")
@@ -21,7 +22,7 @@ public class AuthenticationResource implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String USER_EXIST = "User with provided email allready exist!";
 	public static final String INVALID_AUTHENTICATION = "Invalid user name or password!";
-	public static final String LOGOUT_OK = "Succesfully loged out!";
+	public static final String LOGOUT_OK = "Successfully logged out!";
 	
 	private AuthenticationService authenticationService;
 	

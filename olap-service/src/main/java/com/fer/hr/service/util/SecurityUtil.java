@@ -1,4 +1,4 @@
-package com.fer.hr.service.security.util;
+package com.fer.hr.service.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

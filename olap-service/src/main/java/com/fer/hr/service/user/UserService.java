@@ -1,7 +1,7 @@
 package com.fer.hr.service.user;
 
-import com.fer.hr.service.dao.IUserDao;
-import com.fer.hr.service.dao.dto.User;
+import com.fer.hr.service.user.dao.IUserDao;
+import com.fer.hr.service.user.dao.dto.User;
 
 public class UserService {
 	private IUserDao userDao;

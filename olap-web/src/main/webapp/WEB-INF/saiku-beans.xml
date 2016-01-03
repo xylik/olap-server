@@ -53,21 +53,16 @@
 		<!-- <property name="repository" ref="repository2bean"/> -->
 	</bean>
 
-	<bean id="userDaoBean" class="com.fer.hr.service.dao.HashMapUserDao"
+	<bean id="userDaoBean" class="com.fer.hr.service.user.dao.HashMapUserDao"
 		scope="singleton" />
 
 	<bean id="userServiceBean" class="com.fer.hr.service.user.UserService">
 		<property name="userDao" ref="userDaoBean" />
 	</bean>
 
-	<bean id="authenticationServiceBean" class="com.fer.hr.service.security.AuthenticationService">
+	<bean id="authenticationServiceBean" class="com.fer.hr.web.service.security.AuthenticationService">
 		<property name="userService" ref="userServiceBean" />
 	</bean>
-
-<!-- 	<bean id="authenticationFilter" scope="request" -->
-<!-- 		class="com.fer.hr.web.filters.AuthenticationFilter"> -->
-<!-- 		<property name="authenticationService" ref="authenticationServiceBean" /> -->
-<!-- 	</bean> -->
 	
 	<bean id="authenticationResource" scope="session"
 		class="com.fer.hr.web.rest.resources.AuthenticationResource">

@@ -1,12 +1,13 @@
-package com.fer.hr.service.security;
+package com.fer.hr.web.service.security;
 
 import java.util.HashMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.fer.hr.service.dao.dto.User;
-import com.fer.hr.service.security.util.SecurityUtil;
 import com.fer.hr.service.user.UserService;
+import com.fer.hr.service.user.dao.dto.User;
+import com.fer.hr.service.util.SecurityUtil;
+import com.fer.hr.web.service.security.dto.UserToken;
 
 public class AuthenticationService {
 	

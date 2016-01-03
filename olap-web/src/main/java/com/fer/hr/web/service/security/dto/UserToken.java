@@ -1,4 +1,4 @@
-package com.fer.hr.service.security;
+package com.fer.hr.web.service.security.dto;
 
 public class UserToken {
 	private String userEmail;

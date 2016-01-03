@@ -1,8 +1,8 @@
-package com.fer.hr.service.dao;
+package com.fer.hr.service.user.dao;
 
 import java.util.HashMap;
 
-import com.fer.hr.service.dao.dto.User;
+import com.fer.hr.service.user.dao.dto.User;
 
 public interface IUserDao {
 	

@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.fer.hr.service.security.AuthenticationService;
+import com.fer.hr.web.service.security.AuthenticationService;
+
 
 public class AuthenticationFilter implements javax.servlet.Filter {
 	public static final String AUTHENTICATION_TOKEN = "AuthenticationToken";

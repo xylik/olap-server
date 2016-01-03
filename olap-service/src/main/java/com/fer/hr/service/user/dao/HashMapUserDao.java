@@ -1,11 +1,11 @@
-package com.fer.hr.service.dao;
+package com.fer.hr.service.user.dao;
 
 import java.util.HashMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.fer.hr.service.dao.dto.User;
-import com.fer.hr.service.security.util.SecurityUtil;
+import com.fer.hr.service.user.dao.dto.User;
+import com.fer.hr.service.util.SecurityUtil;
 
 public class HashMapUserDao implements IUserDao {
 	private HashMap<String, User> usersByEmail = new HashMap<>();
@@ -27,5 +27,4 @@ public class HashMapUserDao implements IUserDao {
 		return new HashMap<>(usersByEmail);
 	}
 	
-
 }

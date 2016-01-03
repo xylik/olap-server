@@ -1,4 +1,4 @@
-package com.fer.hr.service.dao.dto;
+package com.fer.hr.service.user.dao.dto;
 
 public class User {
 	private String email;
