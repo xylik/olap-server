@@ -11,15 +11,18 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import com.fer.hr.web.rest.util.AuthenticationUtil;
 import com.fer.hr.web.service.AuthenticationService;
 import com.fer.hr.web.service.dto.UserToken;
-
 
 @Component
 @Path("/authentication")
 public class AuthenticationResource implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final int EMAIL_POS = 0;
+	private static final int PASSWORD_POS = 1;
 	public static final String USER_EXIST = "User with provided email allready exist!";
 	public static final String INVALID_AUTHENTICATION = "Invalid user name or password!";
 	public static final String LOGOUT_OK = "Successfully logged out!";
@@ -34,23 +37,24 @@ public class AuthenticationResource implements Serializable {
     @Consumes("application/x-www-form-urlencoded")
 	@Path("/register")
 	public Response register(
-			@FormParam("email") String userEmail, 
-			@FormParam("password") String userPassword, 
+			@FormParam("credentials") String credentials,
 			@FormParam("gcmid")String gcmId) {
-		UserToken token = authenticationService.register(userEmail, userPassword, gcmId);
 		
-		if(token == null) return Response.status(Status.CONFLICT).entity(USER_EXIST).type(MediaType.TEXT_PLAIN).build();
-		else return Response.ok(token).type(MediaType.APPLICATION_JSON).build();
+		String authToken = generateAuthenticationToken(credentials, gcmId);
+
+		if(authToken == null) return Response.status(Status.CONFLICT).entity(USER_EXIST).type(MediaType.TEXT_PLAIN).build();
+		else return Response.ok(authToken).type(MediaType.TEXT_PLAIN).build();
 	}
 	
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@Path("/login")
-	public Response login(@FormParam("email") String userEmail, @FormParam("password")String userPassword) {
-		UserToken token = authenticationService.login(userEmail, userPassword);
+	public Response login(@FormParam("credentials") String credentials) {
 		
-		if(token == null) return Response.status(Status.FORBIDDEN).entity(INVALID_AUTHENTICATION).type(MediaType.TEXT_PLAIN).build();
-		else return Response.ok(token).type(MediaType.APPLICATION_JSON).build();
+		String authToken = generateAuthenticationToken(credentials, null);
+		
+		if(authToken == null) return Response.status(Status.FORBIDDEN).entity(INVALID_AUTHENTICATION).type(MediaType.TEXT_PLAIN).build();
+		else return Response.ok(authToken).type(MediaType.TEXT_PLAIN).build();
 	}
 	
 	@POST
@@ -61,6 +65,18 @@ public class AuthenticationResource implements Serializable {
 
 		if(isLogedOut) return Response.ok(LOGOUT_OK).build();
 		else return Response.status(Status.FORBIDDEN).build();
+	}
+	
+	private String generateAuthenticationToken(String credentials, String gcmId) {
+		String[] decodedCredentials = AuthenticationUtil.decodeCredentials(credentials);
+		String userEmail = decodedCredentials[EMAIL_POS];
+		String userPassword = decodedCredentials[PASSWORD_POS];
+		
+		UserToken token = null;
+		if(StringUtils.isEmpty(gcmId)) token = authenticationService.login(userEmail, userPassword);
+		else token = authenticationService.register(userEmail, userPassword, gcmId);
+		
+		return token == null ? null : token.getAuthenticationToken();
 	}
 	
 }

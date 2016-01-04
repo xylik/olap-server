@@ -17,7 +17,7 @@ import com.fer.hr.web.service.AuthenticationService;
 
 
 public class AuthenticationFilter implements javax.servlet.Filter {
-	public static final String AUTHENTICATION_TOKEN = "AuthenticationToken";
+	public static final String AUTHORIZATION_HEADER = "Authorization";
 
 	private AuthenticationService authenticationService;
 
@@ -36,7 +36,7 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String reqPath = req.getRequestURI().substring(req.getContextPath().length());
 
-		String token = req.getHeader(AUTHENTICATION_TOKEN);
+		String token = req.getHeader(AUTHORIZATION_HEADER);
 		boolean isResourceProtected = false;
 		if (reqPath.matches("^/rest/saiku/\\w+/discover.*$")) isResourceProtected = true;
 		else if (reqPath.matches("^/rest/saiku/api/query.*$")) isResourceProtected = true;
