@@ -1,4 +1,4 @@
-package com.fer.hr.web.service.security;
+package com.fer.hr.web.service;
 
 import java.util.HashMap;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import com.fer.hr.service.user.UserService;
 import com.fer.hr.service.user.dao.dto.User;
 import com.fer.hr.service.util.SecurityUtil;
-import com.fer.hr.web.service.security.dto.UserToken;
+import com.fer.hr.web.service.dto.UserToken;
 
 public class AuthenticationService {
 	
@@ -42,9 +42,9 @@ public class AuthenticationService {
 		return true;
 	}
 	
-	public UserToken register(String userEmail, String userPassword) {
+	public UserToken register(String userEmail, String userPassword, String gcmId) {
 		if(StringUtils.isEmpty(userEmail) && StringUtils.isEmpty(userPassword)) return null;
-		else if( userService.addUser(userEmail, userPassword) == null) return null;
+		else if( userService.addUser(userEmail, userPassword, gcmId) == null) return null;
 		else return login(userEmail, userPassword);
 	}
 	

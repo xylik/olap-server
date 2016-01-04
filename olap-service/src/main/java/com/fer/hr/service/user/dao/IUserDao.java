@@ -8,6 +8,6 @@ public interface IUserDao {
 	
 	HashMap<String, User> getUsers();
 	
-	User createUser(String email, String password);
+	User createUser(String email, String password, String gcmId);
 	
 }

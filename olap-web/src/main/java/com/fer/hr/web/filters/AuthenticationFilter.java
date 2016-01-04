@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.fer.hr.web.service.security.AuthenticationService;
+import com.fer.hr.web.service.AuthenticationService;
 
 
 public class AuthenticationFilter implements javax.servlet.Filter {
@@ -38,10 +38,9 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 
 		String token = req.getHeader(AUTHENTICATION_TOKEN);
 		boolean isResourceProtected = false;
-		if (reqPath.matches("^/rest/saiku/\\w+/discover.*$"))
-			isResourceProtected = true;
-		else if (reqPath.matches("^/rest/saiku/api/query.*$"))
-			isResourceProtected = true;
+		if (reqPath.matches("^/rest/saiku/\\w+/discover.*$")) isResourceProtected = true;
+		else if (reqPath.matches("^/rest/saiku/api/query.*$")) isResourceProtected = true;
+		else if(reqPath.matches("^/rest/gcm/message/push$")) isResourceProtected = true;
 
 		if (isResourceProtected) {
 			boolean isUserLogedIn = authenticationService.isUserLogedIn(token);

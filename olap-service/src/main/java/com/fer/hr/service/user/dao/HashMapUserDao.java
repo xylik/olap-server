@@ -11,11 +11,11 @@ public class HashMapUserDao implements IUserDao {
 	private HashMap<String, User> usersByEmail = new HashMap<>();
 
 	@Override
-	public User createUser(String email, String password) {
+	public User createUser(String email, String password, String gcmId) {
 		if(StringUtils.isEmpty(email) || StringUtils.isEmpty(password) || usersByEmail.get(email) != null) return null;
 		
 		String saltedHashPassword = SecurityUtil.getSaltedHash(password);
-		User u = new User(email, saltedHashPassword);
+		User u = new User(email, saltedHashPassword, gcmId);
 		
 		usersByEmail.put(email, u);
 		return u;

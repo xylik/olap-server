@@ -60,7 +60,7 @@
 		<property name="userDao" ref="userDaoBean" />
 	</bean>
 
-	<bean id="authenticationServiceBean" class="com.fer.hr.web.service.security.AuthenticationService">
+	<bean id="authenticationServiceBean" class="com.fer.hr.web.service.AuthenticationService">
 		<property name="userService" ref="userServiceBean" />
 	</bean>
 	
@@ -68,6 +68,16 @@
 		class="com.fer.hr.web.rest.resources.AuthenticationResource">
 		<property name="authenticationService" ref="authenticationServiceBean" />
 	</bean>
+	
+	<bean id="gcmServiceBean" class="com.fer.hr.web.service.GCMService">
+		<property name="userService" ref="userServiceBean" />
+	</bean>
+	
+	<bean id="gcmResource" scope="session"
+		class="com.fer.hr.web.rest.resources.GCMResources">
+		<property name="gcmService" ref="gcmServiceBean" />
+	</bean>
+	
 
 	<!-- <bean id="sessionResource" class="org.saiku.web.rest.resources.SessionResource"> 
 		<property name="sessionService" ref="sessionService"/> <property name="userService" 

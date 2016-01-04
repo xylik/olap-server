@@ -12,8 +12,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.stereotype.Component;
 
-import com.fer.hr.web.service.security.AuthenticationService;
-import com.fer.hr.web.service.security.dto.UserToken;
+import com.fer.hr.web.service.AuthenticationService;
+import com.fer.hr.web.service.dto.UserToken;
 
 
 @Component
@@ -33,8 +33,11 @@ public class AuthenticationResource implements Serializable {
 	@POST
     @Consumes("application/x-www-form-urlencoded")
 	@Path("/register")
-	public Response register(@FormParam("email") String userEmail, @FormParam("password") String userPassword) {
-		UserToken token = authenticationService.register(userEmail, userPassword);
+	public Response register(
+			@FormParam("email") String userEmail, 
+			@FormParam("password") String userPassword, 
+			@FormParam("gcmid")String gcmId) {
+		UserToken token = authenticationService.register(userEmail, userPassword, gcmId);
 		
 		if(token == null) return Response.status(Status.CONFLICT).entity(USER_EXIST).type(MediaType.TEXT_PLAIN).build();
 		else return Response.ok(token).type(MediaType.APPLICATION_JSON).build();

@@ -9,13 +9,13 @@ public class UserService {
 	public void setUserDao(IUserDao userDao) {
 		this.userDao = userDao;
 	}
-	
-	public User addUser(String email, String password) {
-		return userDao.createUser(email, password);
+
+	public User addUser(String email, String password, String gcmId) {
+		return userDao.createUser(email, password, gcmId);
 	}
-	
+
 	public User getUserForEmail(String email) {
 		return userDao.getUsers().get(email);
 	}
-	
+
 }
