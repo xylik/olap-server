@@ -37,6 +37,7 @@ import java.util.*;
 //import javax.jcr.RepositoryException;
 
 public class ClassPathResourceDatasourceManager implements IDatasourceManager {
+	private static final String[] connections = new String[] {"test.properties", "foodmart.properties"};
 
 	private URL repoURL;
 
@@ -60,34 +61,41 @@ public class ClassPathResourceDatasourceManager implements IDatasourceManager {
 			f.mkdir();
 			setPath(System.getProperty("java.io.tmpdir") + "/files/");
 			
-			InputStream inputStream = ClassPathResourceDatasourceManager.class.getResourceAsStream("/connection.properties");
-			Properties testProps = new Properties();
-			try {
-				testProps.load(inputStream);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			String connStr = System.getenv("DATABASE_URL");
-			if(connStr != null && !connStr.isEmpty()) {
-			    URI dbUri = null;
+			for(String conn : connections) {
+				InputStream is = ClassPathResourceDatasourceManager.class.getResourceAsStream("/" + conn);
+				Properties p = new Properties();
 				try {
-					dbUri = new URI(connStr);
-				} catch (URISyntaxException e) {
+					p.load(is);
+				} catch (IOException e) {
 					e.printStackTrace();
+					continue;
 				}
-			    String username = dbUri.getUserInfo().split(":")[0];
-			    String password = dbUri.getUserInfo().split(":")[1];
-			    String mondrianJdbcKey = "jdbc:mondrian:Jdbc=";
-			    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-				String catalog = ";Catalog=res:schemas/MondrianSalesSchema.xml;";
-				String dbConnStr = mondrianJdbcKey + dbUrl + catalog;
-				testProps.replace("location", dbConnStr);
-				testProps.replace("username", username);
-				testProps.replace("password", password);
-				System.out.println("ClassPathResourceDatasourceManager -> init() -> props=" + testProps.toString());
+				String connStr = System.getenv("DATABASE_URL"); //heroku specific
+				if(connStr != null && !connStr.isEmpty()) {
+					herokuFormat(connStr, p);
+				}
+				String dsName = conn.substring(0, conn.indexOf('.'));
+				setDatasource( new SaikuDatasource(dsName, SaikuDatasource.Type.OLAP, p) );
 			}
-			setDatasource( new SaikuDatasource("test", SaikuDatasource.Type.OLAP, testProps) );
 		}
+	}
+	
+	private void herokuFormat(String connStr, Properties p) {
+		URI dbUri = null;
+		try {
+			dbUri = new URI(connStr);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	    String username = dbUri.getUserInfo().split(":")[0];
+	    String password = dbUri.getUserInfo().split(":")[1];
+	    String mondrianJdbcKey = "jdbc:mondrian:Jdbc=";
+	    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+		String catalog = ";Catalog=res:schemas/MondrianSalesSchema.xml;";
+		String dbConnStr = mondrianJdbcKey + dbUrl + catalog;
+		p.replace("location", dbConnStr);
+		p.replace("username", username);
+		p.replace("password", password);
 	}
 
 	private void setPath(String path) {
