@@ -90,7 +90,7 @@ public class JSConverter {
         InputStream input = null;
         String version = "";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("org/saiku/web/rest/resources/version.properties");
+        InputStream is = classloader.getResourceAsStream("com/fer/hr/web/rest/resources/version.properties");
         try {
 
             //input = new FileInputStream("version.properties");

@@ -37,7 +37,7 @@ import java.util.*;
 //import javax.jcr.RepositoryException;
 
 public class ClassPathResourceDatasourceManager implements IDatasourceManager {
-	private static final String[] connections = new String[] {"test.properties", "foodmart.properties"};
+	private static final String[] connections = new String[] {"test.properties", "foodmart.properties", "xmla_ssas.properties"};
 
 	private URL repoURL;
 
